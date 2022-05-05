@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Kaushan+Script&display=swap');
+
+h1 {
+    font-family: 'Itim', cursive;
+    font-family: 'Kaushan Script', cursive;;
+    font-size: 60px;
+    color: rgb(172, 14, 14);
+}
+
+body {
+    background-color: rgb(231, 197, 154);
+    background-image: "";
+}
