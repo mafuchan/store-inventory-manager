@@ -30,7 +30,7 @@ let inventory = [{
     item: "Backstage passes to a TAFKAL80ETC concert",
     sell_in: 15,
     quality: 20,
-    category: "Backstage",
+    category: "Backstage Passes",
     date_added: null
 },
 {
