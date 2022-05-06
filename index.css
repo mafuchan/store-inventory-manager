@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Kaushan+Script&display=swap');
 
-body {
-    background-color: rgb(231, 197, 154);
-    background-image: url("texture.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
-
-}
-
 h1 {
     font-family: 'Itim', cursive;
     font-family: 'Kaushan Script', cursive;
@@ -17,6 +9,20 @@ h1 {
     padding-top: 15px;
     text-shadow: -2px 0px white;
 }
-.item-input {
+
+body {
+    background-color: rgb(231, 197, 154);
+    background-image: url("texture.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    font-family: 'Itim', cursive;
+    font-family: 'Kaushan Script', cursive;
+    color: white;
+    font-size: 30px;
+}
+
+ul {
     list-style: none;
+    text-shadow: -2px 0px black;
 }
