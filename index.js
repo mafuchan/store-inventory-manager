@@ -1,3 +1,5 @@
+const item_input = document.querySelector("#item-input")
+
 let inventory = [{
     item: "+5 Dexterity Vest",
     sell_in: 10,
@@ -41,3 +43,7 @@ let inventory = [{
     date_added: null
 },
 ]
+
+item_input.addEventListener("submit", (event) => {
+
+})

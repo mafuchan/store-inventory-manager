@@ -5,31 +5,38 @@
     <title>The Gilded Rose</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"></script>
     <link rel="stylesheet" href="index.css" />
+    <link rel="icon" href="favicon.ico">
     <script defer src="index.js"></script>
-    <link rel="icon" href="favicon.io" />
+
 </head>
 
 <body>
     <main>
         <h1>The Gilded Rose</h1>
-        <form>
+        <form id="item-input">
             <ul>
                 <li>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="user-name" placeholder="Enter your name" required />
+                    <label for="item">Enter item here:</label>
+                    <input type="text" id="item" name="item" placeholder="Aged Brie, Sulfuras, etc." required />
                 </li>
                 <li>
-                    <label for="mail">E-mail:</label>
-                    <input type="email" id="mail" name="user-email" placeholder="Enter your email" required />
+                    <label for="sell_in">Enter days to sell within</label>
+                    <input type="number" id="sell_in" name="sell_in" required>
                 </li>
                 <li>
-                    <label for="msg">Favorite Pokemon:</label>
-                    <textarea id="msg" name="user-favorite">What's your favorite Pokemon?</textarea>
+                    <label for="quality">Enter quality value</label>
+                    <input type="number" id="quality" name="quality" min="0" required>
                 </li>
-                <li class="button">
-                    <button type="submit" value="Submit">Submit</button>
+                <li>
+                    <label for="date_added">Entered into inventory</label>
+                    <input type="date" id="date_added" name="date_added" required>
+                </li>
+
+                <li>
+                    <button type="submit">Add item</button>
                 </li>
             </ul>
         </form>
