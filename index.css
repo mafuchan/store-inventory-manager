@@ -5,9 +5,13 @@ h1 {
     font-family: 'Kaushan Script', cursive;;
     font-size: 60px;
     color: rgb(172, 14, 14);
+    text-align: center;
+    padding-top: 15px;
 }
 
 body {
     background-color: rgb(231, 197, 154);
-    background-image: "";
+    background-image: url("texture.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
