@@ -8,48 +8,48 @@ let inventory = [{
     sell_in: 10,
     quality: 20,
     category: "none",
-    date_added: today
+    date_added: date
 },
 {
     item: "Aged Brie",
     sell_in: 2,
     quality: 0,
     category: "Aged Brie",
-    date_added: today
+    date_added: date
 },
 {
     item: "Elixir of the Mongoose",
     sell_in: 5,
     quality: 7,
     category: "none",
-    date_added: today
+    date_added: date
 },
 {
     item: "Sulfuras, Hand of Ragnaros",
     sell_in: 0,
     quality: 80,
     category: "Sulfuras",
-    date_added: today
+    date_added: date
 },
 {
     item: "Backstage passes to a TAFKAL80ETC concert",
     sell_in: 15,
     quality: 20,
     category: "Backstage Passes",
-    date_added: today
+    date_added: date
 },
 {
     item: "Conjured Mana Cake",
     sell_in: 3,
     quality: 8,
     category: "Conjured",
-    date_added: today
+    date_added: date
 },
 ]
 
 showInventory(inventory)
 
-input.addEventListener("submit", (event) => {
+stock.addEventListener("submit", (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
     const item = {
@@ -65,23 +65,44 @@ input.addEventListener("submit", (event) => {
     return inventory
 })
 
-changeDay.addEventListener("click", () => {
-    stock.forEach(item => item.sellBy = item.sellBy - 1)
-    updateQuality(stock)
-    displayStock(stock)
-})
-
 item_input.addEventListener("submit", (event) => {
     event.preventDefault()
     inventory.forEach(item => {
-        degradeQuality(item)
+        // degradeQuality(item)
         qualityAssurance(item)
-        updateSellIn(item)
+        sellByDate(item)
         showInventory(item)
     })
 })
 
-function degradeQuality(item) {
+function showInventory() {
+    stockPile.innerHTML = ``
+    inventory.map(items => {
+        const inventoryList = document.createElement("div")
+        inventoryList.classList.add("inventory-list")
+        inventoryList.innerHTML = ` 
+            <h3> Item: ${items.item}</h3>
+            <p> Sell In: ${items.sell_in}</p>
+            <p> Quality: ${items.quality}</p>
+            <p> Date Added: ${items.date_added}</p>
+            <p> Category: ${items.category}</p>
+            `
+        return inventoryList
+    }).forEach((inventoryList) => {
+        stockPile.append(inventoryList)
+    })
+}
+
+function sellByDate(inventory) {
+    let sellBy = inventory.sellBy
+    if (sellBy < 0) {
+        return sellBy = 0
+    } else {
+        return sellBy
+    }
+}
+
+function qualityAssurance(item) {
     if (item.category === "Sulfuras") {
         return item.quality = 80
     } else if (item.category === "Conjured") {
@@ -103,20 +124,6 @@ function degradeQuality(item) {
     }
 }
 
-function showInventory() {
-    main.innerHTML = ``
-    inventory.map(itemInfo => {
-        const inventoryList = document.createElement("div")
-        inventoryList.classList.add("inventory-list")
-        inventoryList.innerHTML = ` 
-            <p>${itemInfo.name}</p>
-            <p>${itemInfo.sellIn}</p>
-            <p>${itemInfo.quality}</p>
-            <p>${itemInfo.date}</p>
-            <p>${itemInfo.category}</p>
-            `
-        return inventoryList
-    }).forEach((inventoryList) => {
-        main.append(inventoryList)
-    })
-}
+
+
+
