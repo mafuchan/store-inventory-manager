@@ -47,6 +47,8 @@ let inventory = [{
 },
 ]
 
+showInventory(inventory)
+
 input.addEventListener("submit", (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -63,10 +65,21 @@ input.addEventListener("submit", (event) => {
     return inventory
 })
 
-item_input.addEventListener("submit", (event) => {
-
+changeDay.addEventListener("click", () => {
+    stock.forEach(item => item.sellBy = item.sellBy - 1)
+    updateQuality(stock)
+    displayStock(stock)
 })
 
+item_input.addEventListener("submit", (event) => {
+    event.preventDefault()
+    inventory.forEach(item => {
+        degradeQuality(item)
+        qualityAssurance(item)
+        updateSellIn(item)
+        showInventory(item)
+    })
+})
 
 function degradeQuality(item) {
     if (item.category === "Sulfuras") {
@@ -88,4 +101,22 @@ function degradeQuality(item) {
     } else {
         return item.quality -= 1
     }
+}
+
+function showInventory() {
+    main.innerHTML = ``
+    inventory.map(itemInfo => {
+        const inventoryList = document.createElement("div")
+        inventoryList.classList.add("inventory-list")
+        inventoryList.innerHTML = ` 
+            <p>${itemInfo.name}</p>
+            <p>${itemInfo.sellIn}</p>
+            <p>${itemInfo.quality}</p>
+            <p>${itemInfo.date}</p>
+            <p>${itemInfo.category}</p>
+            `
+        return inventoryList
+    }).forEach((inventoryList) => {
+        main.append(inventoryList)
+    })
 }
