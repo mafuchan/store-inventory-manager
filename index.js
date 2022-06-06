@@ -1,7 +1,7 @@
 const item_input = document.querySelector("#item-input")
 const stock = document.querySelector("#stock")
 const stockPile = document.querySelector(".pile")
-const date = ""
+const date = new Date().toLocaleDateString("en-US")
 
 let inventory = [{
     item: "+5 Dexterity Vest",
@@ -66,3 +66,26 @@ input.addEventListener("submit", (event) => {
 item_input.addEventListener("submit", (event) => {
 
 })
+
+
+function degradeQuality(item) {
+    if (item.category === "Sulfuras") {
+        return item.quality = 80
+    } else if (item.category === "Conjured") {
+        return item.quality -= 2
+    } else if (item.category === "Backstage passes" && item.sellIn === 0) {
+        return item.quality = 0
+    } else if (item.category === "Backstage passes" && item.sellIn > 10) {
+        return item.quality = item.quality + 1
+    } else if (item.category === "Backstage passes" && item.sellIn <= 10 && item.sellIn > 5) {
+        return item.quality = item.quality + 2
+    } else if (item.category === "Backstage passes" && item.sellIn <= 5) {
+        return item.quality = item.quality + 3
+    } else if (item.category === "Aged Brie") {
+        return item.quality = item.quality + 1
+    } else if (item.sellIn <= 0) {
+        return item.quality -= 2
+    } else {
+        return item.quality -= 1
+    }
+}

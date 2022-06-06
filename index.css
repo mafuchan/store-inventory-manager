@@ -26,3 +26,18 @@ ul {
     list-style: none;
     text-shadow: -2px 0px black;
 }
+
+button {
+    padding: 20px;
+    border: none;
+    background-color: brown;
+    color:rgb(231, 197, 154);
+    box-shadow: 0 1px 3px black;
+    font-size: 20px;
+    font-family: 'Itim', cursive;
+    font-family: 'Kaushan Script', cursive;
+}
+
+input:focus,textarea:focus {
+    border-bottom: 4px solid brown;
+}
