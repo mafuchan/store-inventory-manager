@@ -1,4 +1,4 @@
-const item_input = document.querySelector("#item-input")
+const form = document.querySelector("#item-input")
 const stock = document.querySelector("#stock")
 const stockPile = document.querySelector(".pile")
 const date = new Date().toLocaleDateString("en-US")
@@ -49,26 +49,25 @@ let inventory = [{
 
 showInventory(inventory)
 
-stock.addEventListener("submit", (event) => {
+form.addEventListener("submit", event => {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const item = {
+    const newItem = {
         item: formData.get("item"),
-        sell_in: formData.get("sell_in"),
-        quality: formData.get("quality"),
-        category: "none",
-        date_added: formData.get("date_added"),
+        sell_in: +formData.get("sell_in"),
+        quality: +formData.get("quality"),
     }
-    setCategory(item)
-    qualityAssurance(item)
-    inventory = [...inventory, item]
-    return inventory
+    sellByDate(newItem)
+    qualityAssurance(newItem)
+    qualityCheck(newItem)
+    inventory = [...inventory, newItem]
+   
 })
 
-item_input.addEventListener("submit", (event) => {
+stock.addEventListener("click", event => {
     event.preventDefault()
     inventory.forEach(item => {
-        // degradeQuality(item)
+        checkCategory(item)
         qualityAssurance(item)
         sellByDate(item)
         showInventory(item)
@@ -93,12 +92,42 @@ function showInventory() {
     })
 }
 
-function sellByDate(inventory) {
-    let sellBy = inventory.sellBy
-    if (sellBy < 0) {
-        return sellBy = 0
+function checkCategory(item) {
+    if (item.name.includes("Aged Brie") || item.name.includes("aged brie")) {
+        item.category = "Aged Brie"
+    } else if (item.name.includes("Sulfuras") || item.name.includes("sulfuras")) {
+        item.category = "Sulfuras"
+    } else if (item.name.includes("Backstage") || item.name.includes("backstage")) {
+        item.category = "Backstage passes"
+    } else if (item.name.includes("Conjured") || item.name.includes("conjured")) {
+        item.category = "Conjured"
     } else {
-        return sellBy
+        item.category = "None"
+    }
+    return item
+}
+
+function sellByDate(item) {
+     if (item.category === "Sulfuras") {
+        return item.sell_in = 0
+    } else if (item.sell_in > 0) {
+        return item.sell_in = item.sell_in - 1
+    }
+}
+
+function qualityCheck(item) {
+    if (item.category === "Sulfuras") {
+        return item.quality = 80
+    } else if (item.category === "Aged Brie" && item.quality < 50) {
+        return item.quality
+    } else if (item.category === "Backstage passes" && item.quality < 50) {
+        return item.quality
+    } else if (item.quality > 50) {
+        return item.quality = 50
+    } else if (item.quality <= 0) {
+        return item.quality = 0
+    } else {
+        return item.quality
     }
 }
 
@@ -123,7 +152,3 @@ function qualityAssurance(item) {
         return item.quality -= 1
     }
 }
-
-
-
-
