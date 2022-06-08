@@ -56,6 +56,7 @@ form.addEventListener("submit", event => {
         item: formData.get("item"),
         sell_in: +formData.get("sell_in"),
         quality: +formData.get("quality"),
+        date_added: date,
     }
     sellByDate(newItem)
     qualityAssurance(newItem)
@@ -92,19 +93,19 @@ function showInventory() {
     })
 }
 
-function checkCategory(item) {
-    if (item.name.includes("Aged Brie") || item.name.includes("aged brie")) {
-        item.category = "Aged Brie"
-    } else if (item.name.includes("Sulfuras") || item.name.includes("sulfuras")) {
-        item.category = "Sulfuras"
-    } else if (item.name.includes("Backstage") || item.name.includes("backstage")) {
-        item.category = "Backstage passes"
-    } else if (item.name.includes("Conjured") || item.name.includes("conjured")) {
-        item.category = "Conjured"
+function checkCategory(newItem) {
+    if (newItem.item.includes("Aged Brie") || newItem.item.includes("aged brie")) {
+        newItem.category = "Aged Brie"
+    } else if (item.name.includes("Sulfuras") || newItem.item.includes("sulfuras")) {
+        newItem.category = "Sulfuras"
+    } else if (item.name.includes("Backstage") || newItem.item.includes("backstage")) {
+        newItem.category = "Backstage passes"
+    } else if (item.name.includes("Conjured") || newItem.item.includes("conjured")) {
+        newItem.category = "Conjured"
     } else {
-        item.category = "None"
+        newItem.category = "none"
     }
-    return item
+    return newItem
 }
 
 function sellByDate(item) {
