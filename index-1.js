@@ -1,98 +1,98 @@
-const form = document.querySelector("#item-input")
-const stock = document.querySelector("#stock")
-const stockPile = document.querySelector(".pile")
-const date = new Date().toLocaleDateString("en-US")
+const main = document.querySelector("main")
+const form = document.querySelector("form")
+const button = document.querySelector("button")
+const today = new Date().toLocaleDateString("en-US")
+const reset = document.querySelector(".reset")
+
 
 let inventory = [{
-    name: "+5 Dexterity Vest",
-    sell_in: 10,
+    name: "+5 Dexerity Vest",
+    sellIn: 10,
     quality: 20,
-    category: "none",
-    date_added: date
-},
-{
+    category: "None",
+    date: today
+}, {
     name: "Aged Brie",
-    sell_in: 2,
+    sellIn: 2,
     quality: 0,
     category: "Aged Brie",
-    date_added: date
-},
-{
+    date: today
+}, {
     name: "Elixir of the Mongoose",
-    sell_in: 5,
+    sellIn: 5,
     quality: 7,
-    category: "none",
-    date_added: date
-},
-{
+    category: "None",
+    date: today
+}, {
     name: "Sulfuras, Hand of Ragnaros",
-    sell_in: 0,
+    sellIn: 0,
     quality: 80,
     category: "Sulfuras",
-    date_added: date
-},
-{
+    date: today
+}, {
     name: "Backstage passes to a TAFKAL80ETC concert",
-    sell_in: 15,
+    sellIn: 15,
     quality: 20,
-    category: "Backstage Passes",
-    date_added: date
-},
-{
+    category: "Backstage passes",
+    date: today
+}, {
     name: "Conjured Mana Cake",
-    sell_in: 3,
-    quality: 8,
+    sellIn: 3,
+    quality: 6,
     category: "Conjured",
-    date_added: date
-},
-]
-
+    date: today
+}]
 showInventory(inventory)
 
-form.addEventListener("submit", event => {
+form.addEventListener("submit", (event) => {
     event.preventDefault()
+
     const formData = new FormData(event.target)
     const item = {
         name: formData.get("item"),
-        sell_in: +formData.get("sell_in"),
+        sellIn: +formData.get("sellIn"),
         quality: +formData.get("quality"),
-        date_added: date,
+        date: today,
     }
     inventory = [...inventory, item]
-    checkCategory(item)
-    qualityCheck(item)
+    parseCategory(item)
+    checkQuality(item)
     showInventory(item)
+    form.reset()
 })
 
-stock.addEventListener("click", event => {
+button.addEventListener("click", event => {
     event.preventDefault()
     inventory.forEach(item => {
-        
-        qualityAssurance(item)
-        qualityCheck(item)
+        degradeQuality(item)
+        checkQuality(item)
+        updateSellIn(item)
         showInventory(item)
     })
 })
+reset.addEventListener("click", () => {
+    window.location.reload()
+})
 
 function showInventory() {
-    stockPile.innerHTML = ``
+    main.innerHTML = ``
     inventory.map(item => {
-        const inventoryList = document.createElement("div")
-        inventoryList.classList.add("inventory-list")
-        inventoryList.innerHTML = ` 
-            <h3> Item: ${item.name}</h3>
-            <p> Sell In: ${item.sell_in}</p>
-            <p> Quality: ${item.quality}</p>
-            <p> Date Added: ${item.date_added}</p>
-            <p> Category: ${item.category}</p>
+        const itemList = document.createElement("div")
+        itemList.classList.add("inventory-list")
+        itemList.innerHTML = ` 
+            <p>${item.name}</p>
+            <p>${item.sellIn}</p>
+            <p>${item.quality}</p>
+            <p>${item.date}</p>
+            <p>${item.category}</p>
             `
-        return inventoryList
-    }).forEach((inventoryList) => {
-        stockPile.append(inventoryList)
+        return itemList
+    }).forEach((itemList) => {
+        main.append(itemList)
     })
 }
 
-function checkCategory(item) {
+function parseCategory(item) {
     if (item.name.includes("Aged Brie") || item.name.includes("aged brie")) {
         item.category = "Aged Brie"
     } else if (item.name.includes("Sulfuras") || item.name.includes("sulfuras")) {
@@ -102,21 +102,21 @@ function checkCategory(item) {
     } else if (item.name.includes("Conjured") || item.name.includes("conjured")) {
         item.category = "Conjured"
     } else {
-        item.category = "none"
+        item.category = "None"
     }
     return item
 }
 
-function sellByDate(item) {
-     if (item.category === "Sulfuras") {
-        return item.sell_in = ""
-    } else if (item.sell_in > 0) {
-        return item.sell_in = item.sell_in - 1
+function updateSellIn(item) {
+    if (item.category === "Sulfuras") {
+        return item.sellIn = 0
+    } else if (item.sellIn > 0) {
+        return item.sellIn = item.sellIn - 1
     }
 }
 
-function qualityCheck(item) {
-     if (item.category === "Sulfuras") {
+function checkQuality(item) {
+    if (item.category === "Sulfuras") {
         return item.quality = 80
     } else if (item.category === "Aged Brie" && item.quality < 50) {
         return item.quality
@@ -131,7 +131,7 @@ function qualityCheck(item) {
     }
 }
 
-function qualityAssurance(item) {
+function degradeQuality(item) {
     if (item.category === "Sulfuras") {
         return item.quality = 80
     } else if (item.category === "Conjured") {

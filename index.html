@@ -23,11 +23,11 @@
                 </li>
                 <li>
                     <label for="sell_in">Enter # of days to sell within</label>
-                    <input type="number" id="sell_in" name="sell_in" required>
+                    <input type="number" id="sell_in" name="sell_in" min="0" max="20" required>
                 </li>
                 <li>
                     <label for="quality">Enter quality value</label>
-                    <input type="number" id="quality" name="quality" min="0" required>
+                    <input type="number" id="quality" name="quality" min="0" max="50"required>
                 </li>
                 <li>
                     <label for="date_added">Entered into store inventory</label>
@@ -35,7 +35,7 @@
                 </li>
 
                 <li>
-                    <button type="submit">Add item</button>
+                    <button type="click">Add item</button>
                 </li>
             </ul>
         </form>
@@ -44,7 +44,6 @@
             <ul>
                 <li>
                     <label for="stock_date">Current Stock Levels:</label>
-                    <input type="date" id="stock_date" name="stock_date" required />
                     <button type="submit" id="update">Update Now</button>
                 </li>
             </ul>
