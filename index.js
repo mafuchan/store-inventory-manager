@@ -110,7 +110,7 @@ function checkCategory(item) {
 
 function sellByDate(item) {
      if (item.category === "Sulfuras") {
-        return item.sell_in = ""
+        return item.sell_in = ${item.sell_in}
     } else if (item.sell_in > 0) {
         return item.sell_in = item.sell_in - 1
     }
