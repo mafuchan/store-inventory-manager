@@ -70,6 +70,7 @@ stock.addEventListener("click", event => {
         
         qualityAssurance(item)
         qualityCheck(item)
+        sellByDate(item)
         showInventory(item)
     })
 })
